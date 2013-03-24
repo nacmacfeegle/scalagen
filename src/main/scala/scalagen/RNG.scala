@@ -8,6 +8,8 @@ object RNG {
 
 	def flip(value: Double) : Boolean = (rng.nextDouble < value)
 
+	def flip : Boolean = flip(0.5)
+
 	def rndBetween(min: Int, max: Int) : Int = {
 		min +  rng.nextInt(max) 
 	}

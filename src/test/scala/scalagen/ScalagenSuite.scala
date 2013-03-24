@@ -51,7 +51,14 @@ class ScalagenSuite extends FunSuite {
       assert(gaIndy06.toString === bitString03)
 	  }
 	}
-	
-	
+
+	test("GA Crossover tests") {
+
+		new TestScalaGen {
+			val op1 = new GAOperators(1, 1)
+			// xover of identical individuals produces same individual
+			assert(op1.xover(gaIndy01, gaIndy01).toString === gaIndy01.toString)
+		}
+	}
 	
 }

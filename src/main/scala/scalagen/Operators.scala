@@ -10,15 +10,23 @@ trait Operators {
 
 }
 
-class GAOperators extends Operators {
+class GAOperators(val xoverRate: Double, val mutationRAte:Double) extends Operators {
 
-	// single point xover
 	override def xover[T](mom: Individual[T], dad: Individual[T]): Individual[T] = {
 
-		val cutpoint = RNG.rndBetween(1, mom.genotype.size-1) 
-		val genes = mom.genotype.splitAt(cutpoint)._1 ::: dad.genotype.splitAt(cutpoint)._2
+		// single point xover
+		def doXover[T](mom: Individual[T], dad: Individual[T]): Individual[T] = {
 
-		val child = new GAIndividual(genes)
-		child
+			val cutpoint = RNG.rndBetween(1, mom.genotype.size-1) 
+			val genes = mom.genotype.splitAt(cutpoint)._1 ::: dad.genotype.splitAt(cutpoint)._2
+
+			val child = new GAIndividual(genes)
+			child
+		}
+
+
+		if (RNG.flip(xoverRate)) doXover(mom, dad) else mom
+
+		
 	}
 }
